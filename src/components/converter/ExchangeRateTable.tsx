@@ -1,7 +1,11 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { fetchMultipleExchangeRates } from '../../services/currencyApi';
-import { formatCurrency } from '../../utils/formatters';
+
+// Utility function to format currency values
+const formatCurrency = (value: number): string => {
+  return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
 import { ArrowDownUp, Loader2 } from 'lucide-react';
 
 const baseCurrencies = ['USD', 'EUR', 'GBP', 'JPY', 'CAD'];
@@ -85,7 +89,7 @@ const ExchangeRateTable: React.FC = () => {
                     {rate ? 
                       <div className="flex items-center justify-end">
                         <ArrowDownUp className="text-primary-400 mr-1" size={12} />
-                        <span>{rate.toFixed(4)}</span>
+                        <span>{formatCurrency(rate)}</span> {/* Use formatCurrency here */}
                       </div> : 
                       'N/A'
                     }
